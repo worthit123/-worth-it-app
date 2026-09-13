@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0A1E2E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Worth It?">
+<link rel="manifest" href="manifest-v13.json">
+<link rel="apple-touch-icon" href="ios-home-icon-v13.png">
+<link rel="icon" type="image/png" href="ios-home-icon-v13.png">
+<title>Worth It?</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#111827;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:520px;margin:auto;padding:22px 16px 40px}
+header{text-align:center;padding:14px 0 22px}
+.brandmark{width:58px;height:58px;margin:0 auto 8px;border-radius:17px;overflow:hidden;box-shadow:0 5px 18px #00e5d022}
+.brandmark img{width:100%;height:100%;display:block}
+header h1 span{color:#00cfc4}h1{margin:0;font-size:42px;font-weight:900;letter-spacing:-1.8px}header p{margin:5px 0 0;color:#7b8495;font-size:16px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#e7ebf0;padding:6px;border-radius:18px;margin-bottom:16px}
+.tab{border:0;background:transparent;border-radius:14px;padding:13px 5px;font-weight:800;font-size:14px;color:#667085}
+.tab.active{background:#fff;color:#111827;box-shadow:0 2px 8px #00000012}
+.card{background:#fff;border-radius:25px;padding:24px 20px;box-shadow:0 8px 30px #1016250b;border:1px solid #e3e7ed}
+h2{font-size:23px;margin:0 0 18px}.hint{color:#7b8495;font-size:14px;margin:-10px 0 18px}
+label{display:block;font-size:14px;font-weight:850;color:#657084;letter-spacing:.5px;text-transform:uppercase;margin:17px 0 8px}
+input,select{width:100%;border:2px solid #d9dee6;border-radius:16px;background:#fafbfc;padding:17px;font-size:20px;outline:none;color:#111827}
+input:focus,select:focus{border-color:#111827}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:0;border-radius:18px;background:#111827;color:#fff;padding:18px;font-size:18px;font-weight:900;margin-top:20px}.clear{background:#e9edf2;color:#111827;margin-top:10px}
+.result{margin-top:18px;border-radius:25px;padding:24px 20px;border:2px solid #cbd5e1;background:#f8fafc;text-align:center}
+.result.yes{background:#effbf2;border-color:#9bd5a5}.result.maybe{background:#fff9ed;border-color:#f0cf7b}.result.no{background:#fff1f0;border-color:#f0aaa5}
+.badge{display:inline-block;border-radius:999px;padding:10px 18px;font-weight:900;font-size:15px}.yes .badge{background:#c9f0cf;color:#16803b}.maybe .badge{background:#ffe6a9;color:#9a6700}.no .badge{background:#ffd0cc;color:#b52b21}
+.big{font-size:43px;font-weight:950;margin:14px 0 2px;letter-spacing:-1.5px}.sub{font-size:18px;font-weight:800}.score{font-size:20px;font-weight:900;margin-top:20px}.bar{height:10px;background:#e1e6ec;border-radius:99px;overflow:hidden;margin:10px 0 17px}.fill{height:100%;background:#111827;border-radius:99px}.reason{font-size:16px;color:#596579;line-height:1.45}
+.rows{text-align:left;margin-top:18px}.line{display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid #dfe4ea;font-size:16px}.line strong{font-weight:900}
+.hidden{display:none}.smallnote{font-size:13px;color:#7b8495;text-align:center;margin-top:14px}
+.share-btn{width:100%;border:2px solid #d9dee6;border-radius:16px;background:#fff;color:#111827;padding:15px;font-size:16px;font-weight:900;margin-top:18px}.share-btn:active{transform:scale(.99);background:#f5f7fa}
+
+.home{background:#fff;border:1px solid #e3e7ed;border-radius:25px;padding:22px 18px;box-shadow:0 8px 30px #1016250b;margin-bottom:16px}.home-intro{text-align:center;padding:4px 8px 18px}.home-intro h2{font-size:28px;margin:0 0 7px}.home-intro p{color:#657084;font-size:16px;line-height:1.45;margin:0}.mode-grid{display:grid;gap:10px}.mode-card{border:0;border-radius:20px;padding:18px;text-align:left;display:flex;align-items:center;gap:14px;font:inherit;cursor:pointer}.mode-card.job{background:#fff8ed}.mode-card.purchase{background:#eef7ff}.mode-card.side{background:#effbf3}.mode-icon{font-size:30px;width:42px;text-align:center}.mode-card strong{display:block;font-size:20px;margin-bottom:3px}.mode-card span{display:block;color:#657084;font-size:14px;line-height:1.3}.mode-arrow{margin-left:auto;font-size:28px}.how{margin-top:14px;background:#f1f4f7;border-radius:20px;padding:18px}.how h3{margin:0 0 12px;font-size:18px}.step{display:flex;gap:10px;align-items:flex-start;margin-top:10px;color:#536176;font-size:14px;line-height:1.35}.step b{background:#111827;color:#fff;border-radius:50%;min-width:25px;height:25px;display:grid;place-items:center;font-size:13px}.back-home{background:#e9edf2;color:#111827;margin-top:10px}.tabs{margin-bottom:16px}
+</style>
+
+<style>
+#pr .rows{margin-top:22px}
+#pr .rows>div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid #e1e6ed;font-size:18px;line-height:1.3}
+#pr .rows>div:last-child{border-bottom:0}
+#pr .rows span{color:#5f6f86}
+#pr .rows b{text-align:right}
+#pr .note{margin-top:20px;padding-top:16px;border-top:1px solid #e1e6ed;color:#69778b;font-size:15px;line-height:1.45}
+#pr .deal-highlight{display:flex;justify-content:space-between;gap:14px;margin:18px 0}
+#pr .deal-highlight>div{flex:1;background:#f1f5f9;border-radius:16px;padding:15px;text-align:center}
+#pr .deal-highlight strong{display:block;font-size:23px;margin-top:4px}
+#pr .deal-highlight span{font-size:13px;color:#69778b}
+</style>
+
+<style>
+#pr .purchase-result{margin-top:18px;border-radius:25px;padding:24px 20px;border:2px solid #cbd5e1;background:#f8fafc}#pr .purchase-result.yes{background:#effbf2;border-color:#9bd5a5}#pr .purchase-result.maybe{background:#fff9ed;border-color:#f0cf7b}#pr .purchase-result.no{background:#fff1f0;border-color:#f0aaa5}#pr .verdict{display:inline-block;border-radius:999px;padding:10px 18px;font-weight:900;font-size:15px;margin-bottom:2px}#pr .verdict.yes{background:#c9f0cf;color:#16803b}#pr .verdict.maybe{background:#ffe6a9;color:#9a6700}#pr .verdict.no{background:#ffd0cc;color:#b52b21}#pr .rate{font-size:18px;font-weight:800;margin-top:0}#pr .why{font-size:16px;color:#596579;line-height:1.45;margin:16px 0 0}#pr .mini-section{margin:22px 0;padding:16px 0;border-top:1px solid #e1e6ed}
+#pr .mini-section h3{margin:0 0 10px;font-size:16px;letter-spacing:.08em;color:#5f6f86}
+#pr .mini-result{display:flex;justify-content:space-between;gap:15px;font-size:21px}
+#pr .mini-result b{font-weight:800}
+#pr .mini-section p{margin:8px 0 0;color:#69778b;font-size:16px;line-height:1.4}
+#pr .mini-section .muted{font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="brandmark"><img src="icon-192.png" alt="" aria-hidden="true"></div>
+<h1>Worth <span>It?</span></h1>
+<p>Know before you commit.</p>
+</header>
+
+<div id="home" class="home">
+  <div class="home-intro"><h2>What do you want to check?</h2><p>See whether the money, time or price stack up before you commit.</p></div>
+  <div class="mode-grid">
+    <button class="mode-card job" type="button" data-mode="job"><div class="mode-icon">💼</div><div><strong>Job</strong><span>Work out what you're really earning for your time.</span></div><div class="mode-arrow">›</div></button>
+    <button class="mode-card purchase" type="button" data-mode="purchase"><div class="mode-icon">🛒</div><div><strong>Purchase</strong><span>See whether something gives you good value for money.</span></div><div class="mode-arrow">›</div></button>
+    <button class="mode-card side" type="button" data-mode="side"><div class="mode-icon">💡</div><div><strong>Side Hustle</strong><span>Check whether the money and time stack up.</span></div><div class="mode-arrow">›</div></button>
+  </div>
+  <div class="how"><h3>How it works</h3><div class="step"><b>1</b><span><strong>Enter your numbers.</strong><br>Add the money, costs and time.</span></div><div class="step"><b>2</b><span><strong>Get your result.</strong><br>See your score and what it means.</span></div><div class="step"><b>3</b><span><strong>Make a decision.</strong><br>Worth it, close to target or not worth it.</span></div></div>
+</div>
+
+<div id="tabs" class="tabs hidden">
+<button id="jobTab" class="tab active" type="button">💼 Job</button>
+<button id="purchaseTab" class="tab" type="button">🛒 Purchase</button>
+<button id="sideTab" class="tab" type="button">💡 Side Hustle</button>
+</div>
+
+<section id="job" class="card hidden">
+<h2>Is this job worth doing?</h2>
+<div class="hint">Work out what you're really earning for your time.</div>
+<label>You'll earn (£)</label><input id="je" type="number" placeholder="250" inputmode="decimal">
+<label>Your costs (£)</label><input id="jc" type="number" placeholder="79" inputmode="decimal">
+<div class="row"><div><label>Hours</label><input id="jh" type="number" placeholder="13" inputmode="numeric"></div><div><label>Minutes</label><input id="jm" type="number" placeholder="0" inputmode="numeric"></div></div>
+<label>Your target (£/hour)</label><input id="jt" type="number" placeholder="20" inputmode="decimal">
+<button id="jobCalc" class="btn" type="button">WORTH IT?</button><button id="jobClear" class="btn clear" type="button">CLEAR</button><button class="btn back-home" type="button" data-home>BACK TO HOME</button>
+<div id="jr"></div>
+</section>
+
+<section id="purchase" class="card hidden">
+<h2>Is this purchase worth it?</h2>
+<div class="hint">Judge the value by how much you'll actually use it.</div>
+<label>What are you buying? <span style="font-weight:400;text-transform:none">(optional)</span></label><input id="pn" type="text" placeholder="e.g. tools, TV, trainers">
+<label>Price you're paying (£)</label><input id="pp" type="number" placeholder="250" inputmode="decimal">
+<label>Usual price (£) <span style="font-weight:400;text-transform:none">(optional)</span></label><input id="pu" type="number" placeholder="e.g. 300" inputmode="decimal">
+<label>How often will you use it?</label>
+<select id="pf">
+<option value="365">Every day</option>
+<option value="52">Every week</option>
+<option value="12">Every month</option>
+<option value="4">A few times a year</option>
+<option value="1">About once a year</option>
+<option value="custom">Specific number of times per year</option>
+</select>
+<div id="customFreq" style="display:none"><label>Times per year</label><input id="pcf" type="number" min="1" placeholder="e.g. 20" inputmode="numeric"></div>
+<label>Alternative cost per use (£) <span style="font-weight:400;text-transform:none">(optional)</span></label><input id="pa" type="number" placeholder="e.g. holiday rental £500" inputmode="decimal">
+<label>How long will you keep it?</label>
+<select id="pl"><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="5">5+ years</option></select>
+<button id="purchaseCalc" class="btn" type="button">WORTH IT?</button><button id="purchaseClear" class="btn clear" type="button">CLEAR</button><button class="btn back-home" type="button" data-home>BACK TO HOME</button>
+<div id="pr"></div>
+</section>
+
+<section id="side" class="card hidden">
+<h2>Is this side hustle worth it?</h2>
+<div class="hint">See whether the money and time stack up.</div>
+<label>Expected income (£)</label><input id="se" type="number" placeholder="500" inputmode="decimal">
+<label>Startup / other costs (£)</label><input id="sc" type="number" placeholder="150" inputmode="decimal">
+<label>Time required (hours)</label><input id="sh" type="number" placeholder="20" inputmode="decimal">
+<label>Your target (£/hour)</label><input id="st" type="number" placeholder="20" inputmode="decimal">
+<button id="sideCalc" class="btn" type="button">WORTH IT?</button><button id="sideClear" class="btn clear" type="button">CLEAR</button><button class="btn back-home" type="button" data-home>BACK TO HOME</button>
+<div id="sr"></div>
+</section>
+
+<div class="smallnote">Simple decisions. Better choices.</div>
+</div>
+
+<script>
+const gbp=n=>'£'+n.toFixed(2);
+function verdict(rate,target){let ratio=target?rate/target:0,score=Math.max(0,Math.min(100,Math.round(ratio*100)));return score>=100?['YES — WORTH IT','yes',score]:score>=80?['MAYBE — CLOSE TO TARGET','maybe',score]:['NO — NOT WORTH IT','no',score]}
+function box(v,score,main,sub,reason,rows){return `<div class="result ${v[1]}"><div class="badge">${v[0]}</div><div class="big">${main}</div><div class="sub">${sub}</div><div class="score">VALUE SCORE: ${score}/100</div><div class="bar"><div class="fill" style="width:${score}%"></div></div><div class="reason">${reason}</div><div class="rows">${rows.map(x=>`<div class="line"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('')}</div><button class="share-btn" type="button" onclick="shareVisibleResult(this)">SHARE RESULT</button></div>`}
+function calcJob(){let je=document.getElementById('je'),jc=document.getElementById('jc'),jh=document.getElementById('jh'),jm=document.getElementById('jm'),jt=document.getElementById('jt'),jr=document.getElementById('jr');let e=+je.value||0,c=+jc.value||0,h=(+jh.value||0)+((+jm.value||0)/60),t=+jt.value||0;if(!e||!h||!t){jr.innerHTML='<div class="result"><div class="reason">Enter your earnings, time and target to calculate it.</div></div>';return}let p=e-c,r=p/h,v=verdict(r,t),need=Math.max(0,t*h-p);jr.innerHTML=box(v,v[2],gbp(p),gbp(r)+' / hour',r>=t?'You’re beating your target.':`You’re ${gbp(t-r)} per hour below your target.`,[["You'll earn/save",gbp(e)],["Your costs",gbp(c)],["Your profit/saving",gbp(p)],["Total time",h.toFixed(2)+' hrs'],['To hit target',need?gbp(need)+' more':'Target reached']])}
+function calcPurchase(){
+  const pp=document.getElementById('pp'),pu=document.getElementById('pu'),pf=document.getElementById('pf'),pl=document.getElementById('pl'),pn=document.getElementById('pn'),pr=document.getElementById('pr'),pcf=document.getElementById('pcf'),pa=document.getElementById('pa');
+  const p=+pp.value||0,u=+pu.value||0,a=+pa.value||0,f=pf.value,l=+pl.value||1;
+  if(!p||!f||!l){pr.innerHTML='<div class="empty">Enter the price, usage frequency and how long you will keep it.</div>';return}
+  const years={1:1,2:2,3:3,5:5}[l]||1;
+  const usesPerYear=f==='custom'?(+pcf.value||0):+f;
+  if(!usesPerYear){pr.innerHTML='<div class="empty">Enter how many times per year you expect to use it.</div>';return}
+  const uses=Math.round(usesPerYear*years);
+  const cpu=p/uses;
+  const saving=u>0?u-p:0;
+  const savingPct=u>0?((u-p)/u)*100:0;
+
+  let dealScore=null,dealLabel='',dealClass='',dealReason='';
+  if(u>0){
+    dealScore=Math.max(0,Math.min(100,Math.round(50+Math.max(-30,Math.min(30,savingPct))*2.5)));
+    if(savingPct>=20){dealLabel='EXCELLENT DEAL';dealClass='yes';}
+    else if(savingPct>=10){dealLabel='GOOD DEAL';dealClass='yes';}
+    else if(savingPct>=0){dealLabel='FAIR DEAL';dealClass='maybe';}
+    else if(savingPct>-10){dealLabel='POOR DEAL';dealClass='no';}
+    else {dealLabel='BAD DEAL';dealClass='no';}
+    dealReason=savingPct>=0?`You're paying ${savingPct.toFixed(0)}% below the usual price.`:`You're paying ${Math.abs(savingPct).toFixed(0)}% above the usual price.`;
+  }
+
+  let valueScore=cpu<=2?95:cpu<=5?85:cpu<=10?70:cpu<=20?50:25;
+  let valueLabel=cpu<=2?'LOW COST PER USE':cpu<=5?'GOOD COST PER USE':cpu<=10?'MODERATE COST PER USE':'HIGH COST PER USE';
+
+  let alternative='';
+  if(a>0){
+    const altSavingPerUse=a-cpu;
+    const altPct=(altSavingPerUse/a)*100;
+    alternative=altSavingPerUse>0
+      ? `<div class="mini-section"><h3>ALTERNATIVE</h3><div class="mini-result"><b>£${altSavingPerUse.toFixed(2)} less per use</b><span>${altPct.toFixed(0)}% cheaper</span></div><p>At £${cpu.toFixed(2)} per use, this purchase costs less than the £${a.toFixed(2)} alternative.</p></div>`
+      : `<div class="mini-section"><h3>ALTERNATIVE</h3><div class="mini-result"><b>£${Math.abs(altSavingPerUse).toFixed(2)} more per use</b><span>${Math.abs(altPct).toFixed(0)}% dearer</span></div><p>The alternative costs less per use at £${a.toFixed(2)}.</p></div>`;
+  }
+
+  let overallScore,overallLabel,overallClass,overallReason;
+  let alternativeScore=null;
+  if(a>0){
+    const altPct=((a-cpu)/a)*100;
+    // Alternative matters strongly because it answers the real-world question: is buying cheaper than the other option?
+    alternativeScore=Math.max(0,Math.min(100,Math.round(50+altPct*.7)));
+  }
+  if(dealScore===null){
+    if(alternativeScore!==null){
+      overallScore=Math.round(valueScore*.3+alternativeScore*.7);
+      overallReason=alternativeScore>=50
+        ? `This costs ${((a-cpu)/a*100).toFixed(0)}% less per use than your alternative.`
+        : `The alternative costs less per use.`;
+    }else{
+      overallScore=valueScore;
+      overallReason='No usual price or alternative was entered, so this is based on estimated cost per use only.';
+    }
+    overallLabel=overallScore>=80?'YES — WORTH IT':overallScore>=60?'MAYBE — CLOSE CALL':'NO — NOT WORTH IT';
+    overallClass=overallScore>=80?'yes':overallScore>=60?'maybe':'no';
+  }else{
+    if(alternativeScore!==null){
+      // With an alternative supplied: 40% deal, 20% usage value, 40% alternative comparison.
+      overallScore=Math.round(dealScore*.4+valueScore*.2+alternativeScore*.4);
+      const altPct=((a-cpu)/a)*100;
+      overallReason=altPct>0
+        ? `${dealReason} This costs ${altPct.toFixed(0)}% less per use than your alternative.`
+        : altPct<0
+          ? `${dealReason} This costs ${Math.abs(altPct).toFixed(0)}% more per use than your alternative.`
+          : `${dealReason} It costs the same per use as your alternative.`;
+    }else{
+      overallScore=Math.round(dealScore*.6+valueScore*.4);
+      overallReason=`${dealReason} Estimated cost is £${cpu.toFixed(2)} per use.`;
+    }
+    overallLabel=overallScore>=80?'YES — WORTH IT':overallScore>=60?'MAYBE — CLOSE CALL':'NO — NOT WORTH IT';
+    overallClass=overallScore>=80?'yes':overallScore>=60?'maybe':'no';
+  }
+
+  const name=pn.value.trim();
+  const priceComparison=u>0?`<div class="deal-highlight"><div><span>${saving>=0?'YOU SAVE':'YOU PAY EXTRA'}</span><strong>£${Math.abs(saving).toFixed(2)}</strong></div><div><span>${saving>=0?'BELOW USUAL PRICE':'ABOVE USUAL PRICE'}</span><strong>${Math.abs(savingPct).toFixed(0)}%</strong></div></div>`:'';
+  const dealSection=u>0?`<div class="mini-section"><h3>DEAL</h3><div class="mini-result"><b>${dealLabel}</b><span>${dealScore}/100</span></div><p>${dealReason}</p></div>`:'<div class="mini-section"><h3>DEAL</h3><p class="muted">Add the usual price to judge whether you are getting a good deal.</p></div>';
+
+  pr.innerHTML=
+    `<div class="purchase-result ${overallClass}"><div class="verdict ${overallClass}">${overallLabel}</div>`+
+    `<div class="big">£${p.toFixed(2)}</div>`+
+    `<div class="rate">£${cpu.toFixed(2)} / use</div>`+
+    `<div class="score">OVERALL SCORE: ${overallScore}/100</div>`+
+    `<div class="bar"><span style="width:${overallScore}%"></span></div>`+
+    `<p class="why">${name?'<strong>'+name+'</strong> — ':''}${overallReason}</p>`+
+    priceComparison+dealSection+
+    `<div class="mini-section"><h3>USAGE VALUE</h3><div class="mini-result"><b>${valueLabel}</b><span>${valueScore}/100</span></div><p>£${cpu.toFixed(2)} per use across an estimated ${uses}${l==5?'+':''} uses.</p></div>`+
+    alternative+
+    `<div class="rows"><div><span>Estimated uses</span><b>${uses}${l==5?'+':''}</b></div><div><span>Price you pay</span><b>£${p.toFixed(2)}</b></div>`+
+    (u>0?`<div><span>Usual price</span><b>£${u.toFixed(2)}</b></div>`:'')+
+    `<div><span>Used</span><b>${f==='custom'?usesPerYear+' times a year':({365:'Every day',52:'Every week',12:'Every month',4:'A few times a year',1:'About once a year'}[f]||'')}</b></div>`+
+    `<div><span>Kept for</span><b>${l==5?'At least 5 years':({1:'1 year',2:'2 years',3:'3 years'}[l])}</b></div><div><span>Cost per use</span><b>£${cpu.toFixed(2)}</b></div></div>`+
+    `<div class="note">Deal measures price against the usual price. Usage value measures estimated cost per use. If you enter an alternative cost per use, the overall score also weighs how much cheaper or more expensive this purchase is than the alternative.</div><button class="share-btn" type="button" onclick="shareVisibleResult(this)">SHARE RESULT</button></div>`;
+}
+function calcSide(){let se=document.getElementById('se'),sc=document.getElementById('sc'),sh=document.getElementById('sh'),st=document.getElementById('st'),sr=document.getElementById('sr');let e=+se.value||0,c=+sc.value||0,h=+sh.value||0,t=+st.value||0;if(!e||!h||!t){sr.innerHTML='<div class="result"><div class="reason">Enter your income, time and target to calculate it.</div></div>';return}let p=e-c,r=p/h,v=verdict(r,t),need=Math.max(0,t*h-p);sr.innerHTML=box(v,v[2],gbp(p),gbp(r)+' / hour',r>=t?'The numbers beat your target.':`You’re ${gbp(t-r)} per hour below your target.`,[['Expected income',gbp(e)],['Costs',gbp(c)],['Profit',gbp(p)],['Time',h.toFixed(2)+' hrs'],['To hit target',need?gbp(need)+' more':'Target reached']])}
+async function shareVisibleResult(btn){
+  const card=btn.closest('.result')||btn.closest('.purchase-result');
+  if(!card) return;
+  const verdict=card.querySelector('.badge,.verdict')?.innerText.trim()||'';
+  const amount=card.querySelector('.big')?.innerText.trim()||'';
+  const rate=card.querySelector('.sub,.rate')?.innerText.trim()||'';
+  const score=card.querySelector('.score')?.innerText.trim()||'';
+  const reason=card.querySelector('.reason,.why')?.innerText.trim()||'';
+  const text=[`WORTH IT?`,verdict,amount,rate,score,reason].filter(Boolean).join('\n');
+  if(navigator.share){
+    try{await navigator.share({title:'Worth It?',text});return;}catch(e){if(e&&e.name==='AbortError')return;}
+  }
+  try{await navigator.clipboard.writeText(text);alert('Result copied. You can paste it anywhere.');}
+  catch(e){alert(text);}
+}
+function show(id,el){document.querySelectorAll('section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function clearSection(id){document.querySelectorAll('#'+id+' input').forEach(x=>x.value='');document.getElementById(id).querySelectorAll('select').forEach(x=>x.selectedIndex=0);document.getElementById(id==='job'?'jr':id==='purchase'?'pr':'sr').innerHTML=''}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('jobTab').addEventListener('click', function(){show('job',this)});
+  document.getElementById('purchaseTab').addEventListener('click', function(){show('purchase',this)});
+  document.getElementById('sideTab').addEventListener('click', function(){show('side',this)});
+  document.getElementById('jobCalc').addEventListener('click', calcJob);
+  document.getElementById('purchaseCalc').addEventListener('click', calcPurchase);
+  document.getElementById('sideCalc').addEventListener('click', calcSide);
+  document.getElementById('jobClear').addEventListener('click', function(){clearSection('job')});
+  document.getElementById('purchaseClear').addEventListener('click', function(){clearSection('purchase')});
+  document.getElementById('sideClear').addEventListener('click', function(){clearSection('side')});
+});
+document.addEventListener('DOMContentLoaded',function(){
+const pf=document.getElementById('pf');
+if(pf){pf.addEventListener('change',function(){document.getElementById('customFreq').style.display=this.value==='custom'?'block':'none';});}
+});
+function showMode(mode){document.getElementById('home').classList.add('hidden');document.getElementById('tabs').classList.remove('hidden');['job','purchase','side'].forEach(id=>document.getElementById(id).classList.toggle('hidden',id!==mode));['jobTab','purchaseTab','sideTab'].forEach(id=>document.getElementById(id).classList.remove('active'));document.getElementById(mode==='job'?'jobTab':mode==='purchase'?'purchaseTab':'sideTab').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function showHome(){document.getElementById('home').classList.remove('hidden');document.getElementById('tabs').classList.add('hidden');['job','purchase','side'].forEach(id=>document.getElementById(id).classList.add('hidden'));window.scrollTo({top:0,behavior:'smooth'})}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>showMode(b.dataset.mode)));document.querySelectorAll('[data-home]').forEach(b=>b.addEventListener('click',showHome));});
+</script>
+</body>
+</html>
