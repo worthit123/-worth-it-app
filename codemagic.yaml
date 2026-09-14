@@ -22,13 +22,15 @@ workflows:
       - name: Build iOS app
         script: |
           cd ios_package/src
+          mkdir -p build
           xcodebuild \
             -workspace "Worth It?.xcworkspace" \
             -scheme "Worth It?" \
             -configuration Release \
             -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             build
 
     artifacts:
-      - ios_package/src/build/Release-iphoneos/*.app
+      - ios_package/src/build/Build/Products/Release-iphoneos/*.app
