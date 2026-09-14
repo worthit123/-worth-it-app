@@ -26,6 +26,10 @@ workflows:
           s = re.sub(r'\nextension AppDelegate\s*:\s*MessagingDelegate\s*\{.*?\n\}\s*$', '\n', s, flags=re.S)
           open(p, "w").write(s)
           PY
+          PUSHNOTIFICATIONS=$(find ios_package -name "PushNotifications.swift" -type f | head -n 1)
+          if [ -n "$PUSHNOTIFICATIONS" ]; then
+          : > "$PUSHNOTIFICATIONS"
+          fi
 
       - name: Install CocoaPods
         script: |
