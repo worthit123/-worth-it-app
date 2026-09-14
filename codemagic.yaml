@@ -13,7 +13,7 @@ workflows:
           rm -rf ios_package
           mkdir ios_package
           unzip -q "Worth It?.zip" -d ios_package
-                - name: Remove Firebase push dependency
+      - name: Remove Firebase push dependency
         script: |
           APPDELEGATE=$(find ios_package -name "AppDelegate.swift" -type f | head -n 1)
           python3 - "$APPDELEGATE" <<'PY'
