@@ -11,37 +11,19 @@ workflows:
       - name: Extract iOS package
         script: |
           rm -rf ios_package
-          mkdir ios_package
+          mkdir -p ios_package
           unzip -q "Worth It? 2.zip" -d ios_package
-
-      - name: Remove unused Firebase push code
-        script: |
-          find ios_package -name "*.swift" -type f -print0 | while IFS= read -r -d '' FILE
-          do
-            sed -i '' '/import FirebaseCore/d' "$FILE"
-            sed -i '' '/import FirebaseMessaging/d' "$FILE"
-            sed -i '' '/FirebaseApp\.configure/d' "$FILE"
-            sed -i '' '/Messaging\.messaging()/d' "$FILE"
-            sed -i '' '/Messaging\./d' "$FILE"
-          done
-
-          PUSHFILE=$(find ios_package -name "PushNotifications.swift" -type f | head -n 1)
-          if [ -n "$PUSHFILE" ]; then
-            : > "$PUSHFILE"
-          fi
 
       - name: Install CocoaPods
         script: |
-          PODFILE=$(find ios_package -name "Podfile" -type f | head -n 1)
-          cd "$(dirname "$PODFILE")"
-          pod install
+          cd ios_package/src
+          pod install --repo-update
 
       - name: Build iOS app
         script: |
-          WORKSPACE=$(find ios_package -name "*.xcworkspace" -type d | head -n 1)
-
+          cd ios_package/src
           xcodebuild \
-            -workspace "$WORKSPACE" \
+            -workspace "Worth It?.xcworkspace" \
             -scheme "Worth It?" \
             -configuration Release \
             -destination 'generic/platform=iOS' \
@@ -49,4 +31,4 @@ workflows:
             build
 
     artifacts:
-      - ios_package/**/*.app
+      - ios_package/src/build/Release-iphoneos/*.app
