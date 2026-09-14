@@ -12,7 +12,7 @@ workflows:
         script: |
           rm -rf ios_package
           mkdir ios_package
-          unzip -q "Worth It?.zip" -d ios_package
+          unzip -q "Worth It? 2.zip" -d ios_package
 
       - name: Remove unused Firebase push code
         script: |
