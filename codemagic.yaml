@@ -1,1 +1,52 @@
+workflows:
+  worth-it-ios:
+    name: Worth It? iOS Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2
 
+    environment:
+      xcode: latest
+
+    scripts:
+      - name: Extract iOS package
+        script: |
+          rm -rf ios_package
+          mkdir ios_package
+          unzip -q "Worth It?.zip" -d ios_package
+
+      - name: Remove unused Firebase push code
+        script: |
+          find ios_package -name "*.swift" -type f -print0 | while IFS= read -r -d '' FILE
+          do
+            sed -i '' '/import FirebaseCore/d' "$FILE"
+            sed -i '' '/import FirebaseMessaging/d' "$FILE"
+            sed -i '' '/FirebaseApp\.configure/d' "$FILE"
+            sed -i '' '/Messaging\.messaging()/d' "$FILE"
+            sed -i '' '/Messaging\./d' "$FILE"
+          done
+
+          PUSHFILE=$(find ios_package -name "PushNotifications.swift" -type f | head -n 1)
+          if [ -n "$PUSHFILE" ]; then
+            : > "$PUSHFILE"
+          fi
+
+      - name: Install CocoaPods
+        script: |
+          PODFILE=$(find ios_package -name "Podfile" -type f | head -n 1)
+          cd "$(dirname "$PODFILE")"
+          pod install
+
+      - name: Build iOS app
+        script: |
+          WORKSPACE=$(find ios_package -name "*.xcworkspace" -type d | head -n 1)
+
+          xcodebuild \
+            -workspace "$WORKSPACE" \
+            -scheme "Worth It?" \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+    artifacts:
+      - ios_package/**/*.app
