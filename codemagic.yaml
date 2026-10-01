@@ -38,7 +38,8 @@ workflows:
           cd ios_package/src
           xcode-project build-ipa \
             --workspace "Worth It?.xcworkspace" \
-            --scheme "Worth It?"
+            --scheme "Worth It?" \
+            --archive-flags="-destination 'generic/platform=iOS'"
 
     artifacts:
       - ios_package/src/build/ios/ipa/*.ipa
