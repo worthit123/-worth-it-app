@@ -4,7 +4,13 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m2
 
+    integrations:
+      app_store_connect: job worth it codemagic 3
+
     environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: io.github.worthit123
       xcode: latest
 
     scripts:
@@ -19,18 +25,17 @@ workflows:
           cd ios_package/src
           pod install --repo-update
 
-      - name: Build iOS app
+      - name: Set up code signing
         script: |
           cd ios_package/src
-          mkdir -p build
-          xcodebuild \
-            -workspace "Worth It?.xcworkspace" \
-            -scheme "Worth It?" \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO \
-            build
+          xcode-project use-profiles
+
+      - name: Build signed IPA
+        script: |
+          cd ios_package/src
+          xcode-project build-ipa \
+            --workspace "Worth It?.xcworkspace" \
+            --scheme "Worth It?"
 
     artifacts:
-      - ios_package/src/build/Build/Products/Release-iphoneos/*.app
+      - ios_package/src/build/ios/ipa/*.ipa
