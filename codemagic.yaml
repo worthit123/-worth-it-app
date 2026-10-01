@@ -8,9 +8,6 @@ workflows:
       app_store_connect: job worth it codemagic 3
 
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: io.github.worthit123
       xcode: latest
 
     scripts:
@@ -24,6 +21,20 @@ workflows:
         script: |
           cd ios_package/src
           pod install --repo-update
+
+      - name: Initialize keychain
+        script: |
+          keychain initialize
+
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files "io.github.worthit123" \
+            --type IOS_APP_STORE \
+            --create
+
+      - name: Add signing certificate
+        script: |
+          keychain add-certificates
 
       - name: Set up code signing
         script: |
