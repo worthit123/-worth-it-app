@@ -39,7 +39,8 @@ workflows:
           xcode-project build-ipa \
             --workspace "Worth It?.xcworkspace" \
             --scheme "Worth It?" \
-            --archive-flags="-destination 'generic/platform=iOS'"
+            --archive-flags="-destination 'generic/platform=iOS'" \
+            --disable-xcpretty
 
     artifacts:
       - ios_package/src/build/ios/ipa/*.ipa
