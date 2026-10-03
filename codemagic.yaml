@@ -12,7 +12,7 @@ workflows:
 
       ios_signing:
         provisioning_profiles:
-          - Worth It App Store
+          - Worth It App Store 2
         certificates:
           - Worth It Distribution 3 uploaded
 
