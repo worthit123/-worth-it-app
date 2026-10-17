@@ -1,3 +1,4 @@
+
 workflows:
   worth-it-ios:
     name: Worth It? iOS Build
@@ -19,9 +20,32 @@ workflows:
     scripts:
       - name: Extract iOS package
         script: |
+          set -e
           rm -rf ios_package
           mkdir -p ios_package
-          unzip -q "Worth It? 2.zip" -d ios_package
+
+          echo "Checking repository for ZIP files..."
+          pwd
+          ls -la
+
+          ZIP_FILE=$(find . -maxdepth 2 -type f -iname '*.zip' -print -quit)
+
+          if [ -z "$ZIP_FILE" ]; then
+            echo "ERROR: No ZIP file found in the checked-out repository."
+            exit 1
+          fi
+
+          echo "Found ZIP: $ZIP_FILE"
+          unzip -t "$ZIP_FILE"
+          unzip -q "$ZIP_FILE" -d ios_package
+
+          echo "Checking extracted package..."
+          ls -la ios_package
+
+          if [ ! -d ios_package/src ]; then
+            echo "ERROR: Expected ios_package/src folder was not found."
+            exit 1
+          fi
 
       - name: Install CocoaPods
         script: |
